@@ -1,0 +1,13 @@
+nav {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 80px;
+  width: 100%;
+
+  .logo {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}
