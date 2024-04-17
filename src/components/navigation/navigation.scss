@@ -3,11 +3,43 @@ nav {
   flex-flow: row nowrap;
   height: 80px;
   width: 100%;
+  border-bottom: 2px solid white;
+  justify-content: space-between;
+  align-items: center;
+  .nav__svg {
+    height: 40px;
+    width: 40px;
+    // filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(231deg) brightness(106%) contrast(106%);
+  }
 
-  .logo {
-    img {
-      height: 40px;
-      width: 40px;
+  .logo__container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .search__container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+  .nav-links__container ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    list-style-type: none;
+    justify-content: space-between;
+
+    li {
+      padding: 0 0.5em 0 0.5em;
+    }
+    #light-theme-button,
+    #dark-theme-button {
+      cursor: pointer;
     }
   }
 }

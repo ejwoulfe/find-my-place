@@ -1,12 +1,20 @@
 import "./App.css";
+import { useState, useEffect } from "react";
+import { ThemeContext } from "./context/ThemeContext";
 import { Navigation } from "./components/navigation/navigation";
-import { HomePage } from "./pages/home";
 
 function App() {
+  const [theme, setTheme] = useState<string>(localStorage.getItem("theme") as string);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
     <>
-      <Navigation />
-      <HomePage />
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <Navigation />
+      </ThemeContext.Provider>
     </>
   );
 }
