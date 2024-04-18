@@ -1,21 +1,25 @@
 nav {
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   height: 80px;
   width: 100%;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid rgb(46, 46, 46);
   justify-content: space-between;
   align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
   .nav__svg {
     height: 40px;
     width: 40px;
-    // filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(231deg) brightness(106%) contrast(106%);
+    filter: var(--svg-color);
   }
 
   .logo__container {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
+    flex: 20%;
 
     p {
       padding: 0;
@@ -26,20 +30,38 @@ nav {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-  }
-  .nav-links__container ul {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    list-style-type: none;
-    justify-content: space-between;
+    justify-content: center;
+    flex: 60%;
 
-    li {
-      padding: 0 0.5em 0 0.5em;
+    input {
+      width: 50%;
     }
-    #light-theme-button,
-    #dark-theme-button {
-      cursor: pointer;
+  }
+  .nav-links__container {
+    flex: 20%;
+    ul {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      list-style-type: none;
+      justify-content: flex-end;
+      li {
+        padding: 0 0.5em 0 0.5em;
+      }
+      #light-theme-button,
+      #dark-theme-button {
+        cursor: pointer;
+      }
     }
+  }
+  .preferences__container {
+    position: absolute;
+    z-index: 99;
+    background-color: var(--darker-background-color);
+    border: 2px solid var(--text-color);
+    border-right: none;
+    border-top: none;
+    right: 0;
+    top: 82px;
   }
 }

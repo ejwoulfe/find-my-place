@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ErrorPage } from "./pages/error.tsx";
+import { ErrorPage } from "./pages/error/error.tsx";
 import App from "./App.tsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
