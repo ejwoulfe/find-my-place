@@ -1,0 +1,19 @@
+.preferences__container {
+  position: absolute;
+  z-index: 99;
+  background-color: var(--darker-background-color);
+  border: 2px solid var(--text-color);
+  border-right: none;
+  border-top: none;
+  right: 0;
+  top: 82px;
+  max-width: 30%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}

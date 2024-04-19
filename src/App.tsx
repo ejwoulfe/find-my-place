@@ -7,18 +7,17 @@ import PreferencesInterface from "./interfaces/preferences";
 
 function App() {
   const [theme, setTheme] = useState<string>(localStorage.getItem("theme") as string);
-  const [preferences, setPreferences] = useState<PreferencesInterface>({
-    costOfLiving: null,
-    medianIncome: null,
-    medianHouseValue: null,
-    medianAge: null,
-    largePopulation: null,
-    highestEducation: null,
-  });
+  const [preferences, setPreferences] = useState<PreferencesInterface>(
+    JSON.parse(localStorage.getItem("preferences")!)
+  );
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("preferences", JSON.stringify(preferences));
+  }, [preferences]);
 
   return (
     <div className="app" data-theme={theme}>

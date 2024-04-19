@@ -7,11 +7,12 @@ import { ThemeContext } from "../../context/ThemeContext";
 
 import magnifyingGlass from "../../assets/navigation-icons/magnifying.svg";
 import "./navigation.scss";
-import { PreferencesContext } from "../../context/PreferencesContext";
+
+import { PreferencesModal } from "../preferences-modal/preferences-modal";
 
 export function Navigation() {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { preferences, setPreferences } = useContext(PreferencesContext);
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -27,14 +28,13 @@ export function Navigation() {
       </div>
       <div className="nav-links__container">
         <ul>
-          <li>States</li>
           <li>
             <img
               src={preferencesIcon}
               onClick={() => {
                 setModalVisible((prevState) => !prevState);
               }}
-              className="nav__svg"
+              className="nav__svg preferences__button"
               alt="preferences button"
             />
           </li>
@@ -63,16 +63,7 @@ export function Navigation() {
           </li>
         </ul>
       </div>
-      {modalVisible ? (
-        <div id="preferences" className="preferences__container">
-          <h5>Preferences</h5>
-          <ul>
-            <li>Cost of Living</li>
-            <li>Median Income</li>
-            <li>Larger Population</li>
-          </ul>
-        </div>
-      ) : null}
+      {modalVisible ? <PreferencesModal /> : null}
     </nav>
   );
 }
