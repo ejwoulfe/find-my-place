@@ -1,4 +1,4 @@
-.preferences__container {
+.modal__container {
   position: absolute;
   z-index: 99;
   background-color: var(--darker-background-color);
@@ -7,13 +7,50 @@
   border-top: none;
   right: 0;
   top: 82px;
-  max-width: 30%;
+  max-width: 20%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 
-  form {
+  h2 {
+    border-bottom: 2px solid var(--text-color);
+    width: 75%;
+    text-align: center;
+  }
+}
+.modal__description {
+  width: 95%;
+}
+
+.preferences__container {
+  width: 90%;
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+}
+
+.preference {
+  width: 100%;
+
+  .preference__name {
+    border-bottom: 2px solid var(--text-color);
+    width: 100%;
+  }
+  .buttons__list {
+    display: flex;
+    flex-flow: row nowrap;
+    list-style: none;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .radio__list-item {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-around;
+  }
+
+  input {
+    // accent-color: green;
   }
 }
