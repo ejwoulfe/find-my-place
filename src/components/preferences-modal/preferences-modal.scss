@@ -42,15 +42,24 @@
     list-style: none;
     justify-content: space-between;
     padding: 0;
+    margin: 0;
   }
 
   .radio__list-item {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-around;
-  }
+    justify-content: center;
+    align-items: center;
+    flex: 15%;
 
-  input {
-    // accent-color: green;
+    label {
+      width: 100%;
+    }
+
+    input[type="radio"] {
+      // transform: scale(1.25);
+      margin: 0;
+      width: 100%;
+    }
   }
 }

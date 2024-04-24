@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import "./preferences-modal.scss";
 import { PreferencesContext } from "../../context/PreferencesContext";
 import PreferencesInterface from "../../interfaces/preferences";
@@ -14,7 +14,6 @@ export function PreferencesModal() {
       if (i == selectedNumber) {
         radioButtonGroupJSX.push(
           <li className="radio__list-item" key={dataType + "-button-" + i}>
-            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
             <input
               type="radio"
               id={`${dataType}-${i}__radio`}
@@ -26,12 +25,12 @@ export function PreferencesModal() {
               value={i}
               checked
             />
+            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
           </li>
         );
       } else {
         radioButtonGroupJSX.push(
           <li className="radio__list-item" key={dataType + "-button-" + i}>
-            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
             <input
               type="radio"
               id={`${dataType}-${i}__radio`}
@@ -41,6 +40,7 @@ export function PreferencesModal() {
               }}
               value={i}
             />
+            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
           </li>
         );
       }

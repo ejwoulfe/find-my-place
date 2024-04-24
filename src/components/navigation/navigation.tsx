@@ -9,11 +9,25 @@ import magnifyingGlass from "../../assets/navigation-icons/magnifying.svg";
 import "./navigation.scss";
 
 import { PreferencesModal } from "../preferences-modal/preferences-modal";
+import { PreferencesContext } from "../../context/PreferencesContext";
+import OutsideAlerter from "../../helpers/outsideAlerter";
 
 export function Navigation() {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { preferences } = useContext(PreferencesContext);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [preferencesFilled, setPreferencesFilled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const nullArray = Object.values(preferences);
+
+    if (nullArray.includes(null)) {
+      setPreferencesFilled(false);
+    } else {
+      setPreferencesFilled(true);
+    }
+  }, [preferences]);
 
   return (
     <nav data-theme={theme}>
@@ -23,20 +37,37 @@ export function Navigation() {
       </div>
 
       <div className="search__container">
-        <input type="search" id="site-search" name="q" />
+        <input type="search" id="site-search" name="q" placeholder="Search by State or City Name" />
         <img src={magnifyingGlass} className="nav__svg" alt="search-button" />
       </div>
       <div className="nav-links__container">
         <ul>
           <li>
-            <img
-              src={preferencesIcon}
-              onClick={() => {
-                setModalVisible((prevState) => !prevState);
-              }}
-              className="nav__svg preferences__button"
-              alt="preferences button"
-            />
+            {preferencesFilled ? (
+              <img
+                src={preferencesIcon}
+                onClick={() => {
+                  setModalVisible((prevState) => !prevState);
+                }}
+                style={{
+                  filter: "invert(86%) sepia(53%) saturate(5927%) hue-rotate(65deg) brightness(102%) contrast(80%)",
+                }}
+                className="nav__svg preferences__button"
+                alt="preferences button"
+              />
+            ) : (
+              <img
+                src={preferencesIcon}
+                onClick={() => {
+                  setModalVisible((prevState) => !prevState);
+                }}
+                style={{
+                  filter: "invert(20%) sepia(44%) saturate(7054%) hue-rotate(346deg) brightness(95%) contrast(80%)",
+                }}
+                className="nav__svg preferences__button"
+                alt="preferences button"
+              />
+            )}
           </li>
           <li>
             {theme === "light" ? (
@@ -63,7 +94,11 @@ export function Navigation() {
           </li>
         </ul>
       </div>
-      {modalVisible ? <PreferencesModal /> : null}
+      {modalVisible ? (
+        <OutsideAlerter setter={setModalVisible}>
+          <PreferencesModal />
+        </OutsideAlerter>
+      ) : null}
     </nav>
   );
 }
