@@ -11,16 +11,19 @@ function OutsideAlerter({ setter, children }: WrapperProps) {
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
-      console.log(ref);
       /**
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event: any) {
+        const preferenceButtonClassName = "nav__svg preferences__button";
+        // Check to see if the click is the modal toggle button or not, if it isn't then just close the modal
         if (ref.current && !ref.current.contains(event.target)) {
-          setter(false);
+          if (!(event.target.className === preferenceButtonClassName)) {
+            setter(false);
+          }
         }
       }
-      // Bind the event listener
+
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
         // Unbind the event listener on clean up

@@ -4,11 +4,11 @@ nav {
   flex-flow: row nowrap;
   height: 80px;
   width: 100%;
-  border-bottom: 2px solid rgb(46, 46, 46);
+  border-bottom: 2px solid var(--contrast-color);
   justify-content: space-between;
   align-items: center;
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--contrast-color);
   .nav__svg {
     height: 40px;
     width: 40px;
@@ -32,10 +32,7 @@ nav {
     align-items: center;
     justify-content: center;
     flex: 60%;
-
-    input {
-      width: 50%;
-    }
+    height: 100%;
   }
   .nav-links__container {
     flex: 20%;

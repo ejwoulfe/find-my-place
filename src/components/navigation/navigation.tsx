@@ -5,14 +5,19 @@ import sun from "../../assets/navigation-icons/sun.svg";
 import moon from "../../assets/navigation-icons/moon.svg";
 import { ThemeContext } from "../../context/ThemeContext";
 
-import magnifyingGlass from "../../assets/navigation-icons/magnifying.svg";
 import "./navigation.scss";
 
 import { PreferencesModal } from "../preferences-modal/preferences-modal";
 import { PreferencesContext } from "../../context/PreferencesContext";
 import OutsideAlerter from "../../helpers/outsideAlerter";
+import { SearchBar } from "../search/search";
+import StateAndCityInterface from "../../interfaces/stateAndCity";
 
-export function Navigation() {
+interface NavigationProps {
+  setStateAndCity: React.Dispatch<React.SetStateAction<StateAndCityInterface>>;
+}
+
+export function Navigation(props: NavigationProps) {
   const { theme, setTheme } = useContext(ThemeContext);
   const { preferences } = useContext(PreferencesContext);
 
@@ -37,9 +42,9 @@ export function Navigation() {
       </div>
 
       <div className="search__container">
-        <input type="search" id="site-search" name="q" placeholder="Search by State or City Name" />
-        <img src={magnifyingGlass} className="nav__svg" alt="search-button" />
+        <SearchBar setStateAndCity={props.setStateAndCity} />
       </div>
+
       <div className="nav-links__container">
         <ul>
           <li>
