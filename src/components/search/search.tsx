@@ -14,6 +14,7 @@ export function SearchBar(props: SearchBarProps) {
     };
 
     const searchTerm = target.search.value;
+    setStateAndCity({ state: null, city: null });
     console.log(searchTerm);
   }
   return (

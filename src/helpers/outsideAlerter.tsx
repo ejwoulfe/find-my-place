@@ -15,10 +15,16 @@ function OutsideAlerter({ setter, children }: WrapperProps) {
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event: any) {
-        const preferenceButtonClassName = "nav__svg preferences__button";
+        const preferenceButtonClassName = "preferences__button";
+        const preferenceButtonSVGClassName = "nav__svg button__svg";
         // Check to see if the click is the modal toggle button or not, if it isn't then just close the modal
         if (ref.current && !ref.current.contains(event.target)) {
-          if (!(event.target.className === preferenceButtonClassName)) {
+          if (
+            !(
+              event.target.className === preferenceButtonClassName ||
+              event.target.className === preferenceButtonSVGClassName
+            )
+          ) {
             setter(false);
           }
         }

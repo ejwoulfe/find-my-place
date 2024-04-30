@@ -48,54 +48,49 @@ export function Navigation(props: NavigationProps) {
       <div className="nav-links__container">
         <ul>
           <li>
-            {preferencesFilled ? (
-              <img
-                src={preferencesIcon}
-                onClick={() => {
-                  setModalVisible((prevState) => !prevState);
-                }}
-                style={{
-                  filter: "invert(86%) sepia(53%) saturate(5927%) hue-rotate(65deg) brightness(102%) contrast(80%)",
-                }}
-                className="nav__svg preferences__button"
-                alt="preferences button"
-              />
-            ) : (
-              <img
-                src={preferencesIcon}
-                onClick={() => {
-                  setModalVisible((prevState) => !prevState);
-                }}
-                style={{
-                  filter: "invert(20%) sepia(44%) saturate(7054%) hue-rotate(346deg) brightness(95%) contrast(80%)",
-                }}
-                className="nav__svg preferences__button"
-                alt="preferences button"
-              />
-            )}
+            <button
+              onClick={() => {
+                setModalVisible((prevState) => !prevState);
+              }}
+              className="preferences__button">
+              {preferencesFilled ? (
+                <img
+                  src={preferencesIcon}
+                  style={{
+                    filter: "invert(86%) sepia(53%) saturate(5927%) hue-rotate(65deg) brightness(102%) contrast(80%)",
+                  }}
+                  className="nav__svg button__svg"
+                  alt="preferences button"
+                />
+              ) : (
+                <img
+                  src={preferencesIcon}
+                  style={{
+                    filter: "invert(20%) sepia(44%) saturate(7054%) hue-rotate(346deg) brightness(95%) contrast(80%)",
+                  }}
+                  className="nav__svg button__svg"
+                  alt="preferences button"
+                />
+              )}
+            </button>
           </li>
           <li>
-            {theme === "light" ? (
-              <img
-                src={moon}
-                className="nav__svg"
-                id="dark-theme-button"
-                onClick={() => {
-                  setTheme("dark");
-                }}
-                alt="website theme toggle, currently on light mode"
-              />
-            ) : (
-              <img
-                src={sun}
-                className="nav__svg"
-                id="light-theme-button"
-                onClick={() => {
+            <button
+              className="toggle__button"
+              data-testid="toggle-theme-button"
+              onClick={() => {
+                if (theme === "dark") {
                   setTheme("light");
-                }}
-                alt="website theme toggle, currently on dark mode"
-              />
-            )}
+                } else if (theme === "light") {
+                  setTheme("dark");
+                }
+              }}>
+              {theme === "light" ? (
+                <img src={moon} className="nav__svg" alt="switch to dark theme" />
+              ) : (
+                <img src={sun} className="nav__svg" alt="switch to light theme" />
+              )}
+            </button>
           </li>
         </ul>
       </div>
