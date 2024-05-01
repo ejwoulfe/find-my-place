@@ -1,0 +1,25 @@
+.map__container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--background-color);
+
+  .map__title {
+    color: var(--contrast-color);
+  }
+  svg {
+    width: 50%;
+  }
+  text {
+    font-weight: bold;
+  }
+  #HI__text {
+    stroke: var(--contrast-color);
+    font-size: 1.25rem;
+  }
+  .annotation__text {
+    fill: var(--contrast-color);
+  }
+}

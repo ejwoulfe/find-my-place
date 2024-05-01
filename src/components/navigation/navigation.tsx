@@ -46,53 +46,48 @@ export function Navigation(props: NavigationProps) {
       </div>
 
       <div className="nav-links__container">
-        <ul>
-          <li>
-            <button
-              onClick={() => {
-                setModalVisible((prevState) => !prevState);
+        <button
+          onClick={() => {
+            setModalVisible((prevState) => !prevState);
+          }}
+          className="preferences__button">
+          {preferencesFilled ? (
+            <img
+              src={preferencesIcon}
+              style={{
+                filter: "invert(86%) sepia(53%) saturate(5927%) hue-rotate(65deg) brightness(102%) contrast(80%)",
               }}
-              className="preferences__button">
-              {preferencesFilled ? (
-                <img
-                  src={preferencesIcon}
-                  style={{
-                    filter: "invert(86%) sepia(53%) saturate(5927%) hue-rotate(65deg) brightness(102%) contrast(80%)",
-                  }}
-                  className="nav__svg button__svg"
-                  alt="preferences button"
-                />
-              ) : (
-                <img
-                  src={preferencesIcon}
-                  style={{
-                    filter: "invert(20%) sepia(44%) saturate(7054%) hue-rotate(346deg) brightness(95%) contrast(80%)",
-                  }}
-                  className="nav__svg button__svg"
-                  alt="preferences button"
-                />
-              )}
-            </button>
-          </li>
-          <li>
-            <button
-              className="toggle__button"
-              data-testid="toggle-theme-button"
-              onClick={() => {
-                if (theme === "dark") {
-                  setTheme("light");
-                } else if (theme === "light") {
-                  setTheme("dark");
-                }
-              }}>
-              {theme === "light" ? (
-                <img src={moon} className="nav__svg" alt="switch to dark theme" />
-              ) : (
-                <img src={sun} className="nav__svg" alt="switch to light theme" />
-              )}
-            </button>
-          </li>
-        </ul>
+              className="nav__svg button__svg"
+              alt="preferences button"
+            />
+          ) : (
+            <img
+              src={preferencesIcon}
+              style={{
+                filter: "invert(20%) sepia(44%) saturate(7054%) hue-rotate(346deg) brightness(95%) contrast(80%)",
+              }}
+              className="nav__svg button__svg"
+              alt="preferences button"
+            />
+          )}
+        </button>
+
+        <button
+          className="toggle__button"
+          data-testid="toggle-theme-button"
+          onClick={() => {
+            if (theme === "dark") {
+              setTheme("light");
+            } else if (theme === "light") {
+              setTheme("dark");
+            }
+          }}>
+          {theme === "light" ? (
+            <img src={moon} className="nav__svg" alt="switch to dark theme" />
+          ) : (
+            <img src={sun} className="nav__svg" alt="switch to light theme" />
+          )}
+        </button>
       </div>
       {modalVisible ? (
         <OutsideAlerter setter={setModalVisible}>

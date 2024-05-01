@@ -1,7 +1,9 @@
 .home__container {
   .home__banner {
     width: 100%;
-    height: 800px;
-    background-color: var(--background-color);
+    height: var(--banner-height);
+    background-image: url("../../assets/banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }

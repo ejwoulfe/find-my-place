@@ -27,6 +27,8 @@ nav {
     padding: 0;
     margin: 0;
     color: var(--contrast-color);
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 }
 .search__container {
@@ -39,27 +41,26 @@ nav {
 }
 .nav-links__container {
   flex: 20%;
-  ul {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    list-style-type: none;
-    justify-content: flex-end;
-    li {
-      padding: 0 0.5em 0 0.5em;
-    }
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  list-style-type: none;
+  justify-content: flex-end;
 
-    .toggle__button,
-    .preferences__button {
-      cursor: pointer;
-      transition: all 1s;
-      transform-origin: 50% 50%;
-      border: none;
-      background-color: transparent;
+  button {
+    padding: 0 0.5em 0 0.5em;
+  }
 
-      &:hover {
-        transform: scale(1.2);
-      }
+  .toggle__button,
+  .preferences__button {
+    cursor: pointer;
+    transition: all 1s;
+    transform-origin: 50% 50%;
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+      transform: scale(1.2);
     }
   }
 }
