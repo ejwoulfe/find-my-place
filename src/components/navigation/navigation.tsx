@@ -12,6 +12,7 @@ import { PreferencesContext } from "../../context/PreferencesContext";
 import OutsideAlerter from "../../helpers/outsideAlerter";
 import { SearchBar } from "../search/search";
 import StateAndCityInterface from "../../interfaces/stateAndCity";
+import { Link } from "react-router-dom";
 
 interface NavigationProps {
   setStateAndCity: React.Dispatch<React.SetStateAction<StateAndCityInterface>>;
@@ -36,10 +37,10 @@ export function Navigation(props: NavigationProps) {
 
   return (
     <nav data-theme={theme}>
-      <div className="logo__container">
+      <Link to="/" className="logo__container">
         <img src={logo} className="nav__svg" alt="website logo" />
         <p>Find My Place</p>
-      </div>
+      </Link>
 
       <div className="search__container">
         <SearchBar setStateAndCity={props.setStateAndCity} />

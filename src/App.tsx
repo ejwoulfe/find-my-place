@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { ThemeContext } from "./context/ThemeContext";
-import { HomePage } from "./pages/home/home";
+import { HomePage } from "./pages/home/home-page";
 import { Navigation } from "./components/navigation/navigation";
 import { PreferencesContext } from "./context/PreferencesContext";
 import PreferencesInterface from "./interfaces/preferences";
 import StateAndCityInterface from "./interfaces/stateAndCity";
+import { Routes, Route } from "react-router-dom";
+import { ErrorPage } from "./pages/error/error";
+import { StatePage } from "./pages/state/state-page";
 
 function App() {
   const [theme, setTheme] = useState<string>(localStorage.getItem("theme") as string);
@@ -26,7 +29,14 @@ function App() {
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <PreferencesContext.Provider value={{ preferences, setPreferences }}>
           <Navigation setStateAndCity={setStateAndCity} />
-          <HomePage />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/states/:state" element={<StatePage />}>
+              <Route path=":city" />
+            </Route>
+
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
         </PreferencesContext.Provider>
       </ThemeContext.Provider>
     </div>

@@ -23,6 +23,14 @@ nav {
   align-items: flex-end;
   flex: 20%;
 
+  &:link {
+    color: var(--contrast-color);
+  }
+  &:visited {
+    color: var(--contrast-color);
+    text-decoration: none;
+  }
+
   p {
     padding: 0;
     margin: 0;

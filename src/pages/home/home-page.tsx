@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import "./home.scss";
+import "./home-page.scss";
 import { Map } from "../../components/map/map";
 
 export function HomePage() {
