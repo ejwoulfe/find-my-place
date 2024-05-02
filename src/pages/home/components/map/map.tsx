@@ -3,6 +3,8 @@ import { geoCentroid } from "d3-geo";
 import { ComposableMap, Geographies, Geography, Marker, Annotation } from "react-simple-maps";
 
 import allStates from "./map-data/states.json";
+import { useContext } from "react";
+import { StateAndCityContext } from "../../../../context/StateAndCityContext";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -34,8 +36,10 @@ const offsets: offSetsObject = {
 };
 
 export function Map() {
+  const { setStateAndCity } = useContext(StateAndCityContext);
+
   const handleClick = (geo: geoObject) => {
-    console.log(geo);
+    setStateAndCity({ state: geo.name, city: null });
   };
   return (
     <div className="map__container">
@@ -72,7 +76,14 @@ export function Map() {
                       centroid[0] < -67 &&
                       (Object.keys(offsets).indexOf(cur.id) === -1 ? (
                         <Marker coordinates={centroid}>
-                          <text y="2" fontSize={14} textAnchor="middle" id={cur.id + "__text"}>
+                          <text
+                            y="2"
+                            fontSize={14}
+                            textAnchor="middle"
+                            id={cur.id + "__text"}
+                            onClick={() => {
+                              handleClick(geo.properties);
+                            }}>
                             {cur.id}
                           </text>
                         </Marker>
@@ -81,7 +92,14 @@ export function Map() {
                           subject={centroid}
                           dx={offsets[cur.id as keyof offSetsObject][0]}
                           dy={offsets[cur.id as keyof offSetsObject][1]}>
-                          <text x={4} fontSize={14} alignmentBaseline="middle" className="annotation__text">
+                          <text
+                            x={4}
+                            fontSize={14}
+                            alignmentBaseline="middle"
+                            className="annotation__text"
+                            onClick={() => {
+                              handleClick(geo.properties);
+                            }}>
                             {cur.id}
                           </text>
                         </Annotation>

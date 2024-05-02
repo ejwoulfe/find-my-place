@@ -11,14 +11,9 @@ import { PreferencesModal } from "../preferences-modal/preferences-modal";
 import { PreferencesContext } from "../../context/PreferencesContext";
 import OutsideAlerter from "../../helpers/outsideAlerter";
 import { SearchBar } from "../search/search";
-import StateAndCityInterface from "../../interfaces/stateAndCity";
 import { Link } from "react-router-dom";
 
-interface NavigationProps {
-  setStateAndCity: React.Dispatch<React.SetStateAction<StateAndCityInterface>>;
-}
-
-export function Navigation(props: NavigationProps) {
+export function Navigation() {
   const { theme, setTheme } = useContext(ThemeContext);
   const { preferences } = useContext(PreferencesContext);
 
@@ -43,7 +38,7 @@ export function Navigation(props: NavigationProps) {
       </Link>
 
       <div className="search__container">
-        <SearchBar setStateAndCity={props.setStateAndCity} />
+        <SearchBar />
       </div>
 
       <div className="nav-links__container">

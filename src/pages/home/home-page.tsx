@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import "./home-page.scss";
-import { Map } from "../../components/map/map";
+import { Map } from "./components/map/map";
 
 export function HomePage() {
   const { theme } = useContext(ThemeContext);
