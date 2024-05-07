@@ -5,26 +5,23 @@ interface WrapperProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
 }
+interface refObj {
+  current: HTMLElement | null;
+}
 function OutsideAlerter({ setter, children }: WrapperProps) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
-  function useOutsideAlerter(ref: any) {
+  function useOutsideAlerter(ref: refObj) {
+    console.log(ref);
     useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event: any) {
+      function handleClickOutside(event: MouseEvent) {
         const preferenceButtonClassName = "preferences__button";
         const preferenceButtonSVGClassName = "nav__svg button__svg";
+        const target = event.target as HTMLElement;
         // Check to see if the click is the modal toggle button or not, if it isn't then just close the modal
-        if (ref.current && !ref.current.contains(event.target)) {
-          if (
-            !(
-              event.target.className === preferenceButtonClassName ||
-              event.target.className === preferenceButtonSVGClassName
-            )
-          ) {
+        if (ref.current && !ref.current.contains(target)) {
+          if (!(target.className === preferenceButtonClassName || target.className === preferenceButtonSVGClassName)) {
             setter(false);
           }
         }

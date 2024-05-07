@@ -5,6 +5,8 @@ import { ComposableMap, Geographies, Geography, Marker, Annotation } from "react
 import allStates from "./map-data/states.json";
 import { useContext } from "react";
 import { StateAndCityContext } from "../../../../context/StateAndCityContext";
+import { useNavigate } from "react-router-dom";
+import { formatForSearch } from "../../../../helpers/formatForSearch";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -36,10 +38,11 @@ const offsets: offSetsObject = {
 };
 
 export function Map() {
-  const { setStateAndCity } = useContext(StateAndCityContext);
+  const navigate = useNavigate();
 
   const handleClick = (geo: geoObject) => {
-    setStateAndCity({ state: geo.name, city: null });
+    const state = formatForSearch(geo.name);
+    navigate(`/state/${state}`);
   };
   return (
     <div className="map__container">

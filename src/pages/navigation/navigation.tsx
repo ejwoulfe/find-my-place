@@ -7,10 +7,10 @@ import { ThemeContext } from "../../context/ThemeContext";
 
 import "./navigation.scss";
 
-import { PreferencesModal } from "../preferences-modal/preferences-modal";
+import { PreferencesModal } from "../../components/preferences-modal/preferences-modal";
 import { PreferencesContext } from "../../context/PreferencesContext";
-import OutsideAlerter from "../../helpers/outsideAlerter";
-import { SearchBar } from "../search/search";
+import OutsideAlerter from "./components/outsideAlerter";
+import { SearchBar } from "../../components/search/search";
 import { Link } from "react-router-dom";
 
 export function Navigation() {
