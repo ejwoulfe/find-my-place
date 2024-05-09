@@ -1,9 +1,7 @@
-.home__container {
-  .home__banner {
-    width: 100%;
-    height: var(--banner-height);
-    background-image: url("../../assets/banner.png");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+.home__banner {
+  height: var(--banner-height);
+  background-image: url("../../assets/banner.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
 }

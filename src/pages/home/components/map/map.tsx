@@ -3,8 +3,6 @@ import { geoCentroid } from "d3-geo";
 import { ComposableMap, Geographies, Geography, Marker, Annotation } from "react-simple-maps";
 
 import allStates from "./map-data/states.json";
-import { useContext } from "react";
-import { StateAndCityContext } from "../../../../context/StateAndCityContext";
 import { useNavigate } from "react-router-dom";
 import { formatForSearch } from "../../../../helpers/formatForSearch";
 

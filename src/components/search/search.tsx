@@ -3,15 +3,20 @@ import "./search.scss";
 import { confirmStateExists } from "../../helpers/confirmStateExists";
 import { formatForSearch } from "../../helpers/formatForSearch";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function SearchBar() {
   const navigate = useNavigate();
+  const [searchErrorMessage, setSearchErrorMessage] = useState<string | null>(null);
 
   function searchSubmitted(e: React.SyntheticEvent) {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       search: { value: string };
     };
+    if (target.search.value.length === 0) {
+      setSearchErrorMessage("Entered a value of length 0.");
+    }
 
     const searchTerm = target.search.value;
     const splitSearchTerm = formatForSearch(searchTerm);
@@ -23,11 +28,14 @@ export function SearchBar() {
       const searchState = splitSearchTerm[0];
       if (confirmStateExists(searchState)) {
         navigate(`/state/${searchState}`);
+      } else {
+        setSearchErrorMessage("State not found, please try again");
       }
     } else {
-      throw new Error("Format unrecognized, please type City, State or just State");
+      setSearchErrorMessage("Format unrecognized, please type City, State or just State");
     }
   }
+
   return (
     <form className="search__form" method="get" onSubmit={searchSubmitted}>
       <input type="search" id="site-search" name="search" placeholder="Search by State or by City, State" />

@@ -1,0 +1,20 @@
+.state__container {
+  width: 100%;
+  background-color: var(--background-color);
+}
+.state__title {
+  margin: 0;
+  color: white;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.state__banner {
+  width: 100%;
+  height: var(--banner-height);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}

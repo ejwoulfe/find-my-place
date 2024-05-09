@@ -1,8 +1,5 @@
 // Possible search queries can be Illinois; Chicago, Illinois; "" or null, incorrect format Chicago, Illinois, USA
 export function formatForSearch(query: string) {
-  if (query.length === 0 || query === undefined || query === null) {
-    throw new Error("Error in search");
-  }
   const splitQuery = query.split(",");
   const formattedArray = splitQuery.map((word) => {
     const trimmedWord = word.trim();

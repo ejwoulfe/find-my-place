@@ -8,7 +8,9 @@ export function HomePage() {
 
   return (
     <main className="home__container" data-theme={theme}>
-      <div role="banner" className="home__banner"></div>
+      <div role="banner" className="home__banner">
+        <div className="banner__overlay"></div>
+      </div>
       <Map />
     </main>
   );

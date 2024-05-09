@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { confirmStateExists } from "../../helpers/confirmStateExists";
+import { formatForSearch } from "../../helpers/formatForSearch";
+import "./state-page.scss";
+import { CitiesList } from "./components/cities-list/cities-list";
 
 export function StatePage() {
   const location = useLocation();
@@ -10,21 +13,30 @@ export function StatePage() {
   useEffect(() => {
     function getStateFromPathName(path: string) {
       const stateParam = decodeURIComponent(path.substring(path.lastIndexOf("/") + 1, path.length)).trim();
-      console.log(confirmStateExists(stateParam));
+      const state = formatForSearch(stateParam)[0];
 
-      if (confirmStateExists(stateParam)) {
-        setCurrentState(stateParam);
+      if (confirmStateExists(state)) {
+        setCurrentState(state);
       } else {
         navigate("/not found");
       }
     }
-    console.log(location);
     getStateFromPathName(location.pathname);
   }, [location]);
 
   return (
     <main className="state__container">
-      <h1>{currentState}</h1>
+      <div
+        role="banner"
+        className="state__banner"
+        style={{
+          backgroundImage: `url(/src/assets/city-banners/${currentState?.toLowerCase().replace(" ", "-")}.jpg`,
+        }}>
+        <div className="banner__overlay">
+          <h1 className="state__title">{currentState}</h1>
+        </div>
+      </div>
+      <CitiesList />
     </main>
   );
 }
