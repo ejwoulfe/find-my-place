@@ -1,14 +1,7 @@
 import express from 'express';
-import { getStates } from './getStates.js';
-
+import { stateRouter } from './routes/states.js';
 const app = express();
 const port = 8888;
-
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
-});
-
 app.use(express.json());
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
@@ -17,12 +10,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
-  getStates()
-    .then(response => {
-      res.status(200).send(response);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    });
+
+// Routes
+app.use('/states', stateRouter);
+
+
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
 });
+
+
+
+
+
+
+
