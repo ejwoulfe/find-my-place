@@ -5,18 +5,7 @@ import { Sequelize } from "sequelize";
 dotenv.config();
 
 
-// export const sequelize = new Sequelize(
-//     process.env.VITE_PGDATABASE,
-//     process.env.VITE_PGUSER,
-//     process.env.VITE_PGPASSWORD,
-//     process.env.VITE_PGPORT,
 
-//     {
-//         host: process.env.VITE_PGHOST,
-//         dialect: 'postgres',
-
-//     }
-// );
 export const sequelize = new Sequelize({
     database: process.env.VITE_PGDATABASE,
     username: process.env.VITE_PGUSER,

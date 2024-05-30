@@ -26,6 +26,8 @@ body {
   --darker-background-color: #e0e0e0;
   --contrast-color: black;
   --radio-color: black;
+
+  --svg-color: invert(0%) sepia(100%) saturate(7%) hue-rotate(203deg) brightness(95%) contrast(101%);
 }
 
 [data-theme="dark"] {

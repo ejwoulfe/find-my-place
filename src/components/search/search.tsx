@@ -23,7 +23,7 @@ export function SearchBar() {
     if (splitSearchTerm.length === 2) {
       const searchCity = splitSearchTerm[0];
       const searchState = splitSearchTerm[1];
-      navigate(`/state/${searchState}/${searchCity}`);
+      navigate(`/state/${searchState}/city/${searchCity}`);
     } else if (splitSearchTerm.length === 1) {
       const searchState = splitSearchTerm[0];
       if (confirmStateExists(searchState)) {

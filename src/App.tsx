@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import { NotFoundPage } from "./pages/not-found/not-found";
 import { StatePage } from "./pages/state/state-page";
 import { CityPage } from "./pages/city/city-page";
+import { InfoPage } from "./pages/information/info-page";
 
 function App() {
   const [theme, setTheme] = useState<string>(localStorage.getItem("theme") as string);
@@ -31,8 +32,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/state/:state/" element={<StatePage />}>
-              <Route path=":city" element={<CityPage />} />
+            <Route path="/state">
+              <Route index element={<InfoPage />} />
+              <Route path=":state" element={<StatePage />} />
+              <Route path=":state/city/:city" element={<CityPage />} />
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

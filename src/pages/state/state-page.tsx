@@ -21,7 +21,9 @@ export function StatePage() {
         navigate("/not found");
       }
     }
-    getStateFromPathName(location.pathname);
+    if (!location.pathname.includes("city/")) {
+      getStateFromPathName(location.pathname);
+    }
   }, [location]);
 
   return (
@@ -36,7 +38,11 @@ export function StatePage() {
           <h1 className="state__title">{currentState}</h1>
         </div>
       </div>
-      <CitiesList />
+      {currentState !== undefined && currentState !== null ? (
+        <CitiesList state={currentState} />
+      ) : (
+        <span>Loading Cities...</span>
+      )}
     </main>
   );
 }

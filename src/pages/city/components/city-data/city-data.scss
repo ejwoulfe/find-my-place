@@ -1,0 +1,16 @@
+.city-data__container {
+  background-color: var(--background-color);
+  color: var(--contrast-color);
+}
+.city__banner {
+  background-color: var(--background-color);
+}
+.banner__svg {
+  filter: var(--svg-color);
+}
+.demographics__education li {
+  list-style-type: none;
+}
+.population__number img {
+  filter: var(--svg-color);
+}
