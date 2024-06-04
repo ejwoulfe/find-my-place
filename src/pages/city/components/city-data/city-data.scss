@@ -2,15 +2,152 @@
   background-color: var(--background-color);
   color: var(--contrast-color);
 }
+.section__title {
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: underline;
+}
+.city__banner,
+.city__demographics,
+.city__race,
+.city__crime {
+  background-color: var(--darker-background-color);
+}
 .city__banner {
-  background-color: var(--background-color);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.city__banner img {
+  width: 5%;
+  height: auto;
+  padding-bottom: 3em;
+}
+.banner__title {
+  font-size: 3rem;
 }
 .banner__svg {
   filter: var(--svg-color);
 }
+
+.city__quick {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.quick__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 250px;
+  width: 100%;
+
+  div {
+    flex: 30% 1 1;
+    text-align: center;
+  }
+}
+
+.city__demographics {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+.demographics__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  min-height: 250px;
+  div {
+    flex: 30% 1 1;
+    text-align: center;
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      border-right: 2px solid var(--contrast-color);
+      // margin-right: -2px;
+    }
+  }
+}
 .demographics__education li {
   list-style-type: none;
 }
-.population__number img {
+.city__population {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.population__container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  div {
+    flex: 50%;
+  }
+}
+.population__number {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  img {
+    filter: var(--svg-color);
+    width: 50%;
+    height: auto;
+  }
+}
+.city__race {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.race__container {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
+  width: 100%;
+  div {
+    flex: 50%;
+    text-align: center;
+  }
+}
+.race__image img {
   filter: var(--svg-color);
+  width: 50%;
+  height: auto;
+}
+
+.city__marital {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.marital__container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  div {
+    flex: 50%;
+    text-align: center;
+  }
+}
+.marital__image img {
+  filter: var(--svg-color);
+  width: 50%;
+  height: auto;
+}
+
+.city__crime {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }

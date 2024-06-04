@@ -28,16 +28,21 @@ export function StatePage() {
 
   return (
     <main className="state__container">
-      <div
-        role="banner"
-        className="state__banner"
-        style={{
-          backgroundImage: `url(/src/assets/city-banners/${currentState?.toLowerCase().replace(" ", "-")}.jpg`,
-        }}>
-        <div className="banner__overlay">
-          <h1 className="state__title">{currentState}</h1>
+      {currentState !== undefined && currentState !== null ? (
+        <div
+          role="banner"
+          className="state__banner"
+          style={{
+            backgroundImage: `url(/src/assets/city-banners/${currentState?.toLowerCase().replace(" ", "-")}.jpg`,
+          }}>
+          <div className="banner__overlay">
+            <h1 className="state__title">{currentState}</h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+
       {currentState !== undefined && currentState !== null ? (
         <CitiesList state={currentState} />
       ) : (

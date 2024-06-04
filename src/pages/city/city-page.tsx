@@ -29,7 +29,7 @@ export function CityPage() {
     <main className="city__container">
       {location.state === null ? (
         cityQuery.data.map((city: CityInterface) => {
-          return <CityData city={city} />;
+          return <CityData key={city.name} city={city} />;
         })
       ) : (
         <CityData city={location.state} />
