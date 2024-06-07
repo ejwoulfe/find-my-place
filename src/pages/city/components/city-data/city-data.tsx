@@ -3,12 +3,13 @@ import cityBuildings from "../../../../assets/city-buildings.svg";
 import people from "../../../../assets/people.svg";
 import shakingHands from "../../../../assets/shaking-hands.svg";
 import rings from "../../../../assets/rings.svg";
-import { Pie } from "react-chartjs-2";
+import { Pie, Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import "./city-data.scss";
 
 import { useEffect } from "react";
+import RaceInterface from "../../../../interfaces/race";
 
 interface CityDataProps {
   city: CityInterface;
@@ -21,10 +22,30 @@ export function CityData(cityData: CityDataProps) {
   function convertToPercentage(number: number, total: number) {
     return ((number / total) * 100).toFixed(2);
   }
+  function randomHexColorCode(races: Array<RaceInterface>) {
+    const colors = [];
+    for (let i = 0; i < Object.keys(races).length; i++) {
+      const color = (Math.random() * 0xfffff * 1000000).toString(16);
+      colors.push("#" + color.slice(0, 6));
+    }
+    return colors;
+  }
 
   useEffect(() => {
     console.log(city);
+    getRaceNames(city.races);
   }, [city]);
+
+  function getRaceNames(races: Array<RaceInterface>) {
+    return races.map((race: RaceInterface) => {
+      return race.ethnicity.replace("alone", "").trim();
+    });
+  }
+  function getRaceNumber(races: Array<RaceInterface>) {
+    return races.map((race: RaceInterface) => {
+      return race.percentOf;
+    });
+  }
 
   return (
     <div className="city-data__container">
@@ -136,7 +157,49 @@ export function CityData(cityData: CityDataProps) {
         <h2 className="section__title">Race</h2>
         <div className="race__container">
           <div className="race__graph">
-            <h4>Placeholder for graph</h4>
+            <Doughnut
+              data={{
+                labels: getRaceNames(city.races),
+                datasets: [
+                  {
+                    label: "Percentage",
+                    hoverBorderColor: "#000000",
+                    hoverBorderWidth: 1,
+                    data: getRaceNumber(city.races),
+                    backgroundColor: randomHexColorCode(city.races),
+                    borderColor: "#000000",
+                    borderWidth: 2,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  tooltip: {
+                    enabled: false,
+                  },
+                  legend: {
+                    position: "top",
+                    labels: {
+                      usePointStyle: true,
+                      pointStyle: "circle",
+                      padding: 30,
+                    },
+                  },
+                  datalabels: {
+                    display: true,
+                    anchor: "center",
+                    align: "center",
+                    padding: 20,
+                    formatter: (val) => val.toLocaleString(),
+                    labels: {
+                      value: {
+                        color: "black",
+                      },
+                    },
+                  },
+                },
+              }}
+            />
           </div>
           <div className="race__image">
             <img src={shakingHands} alt="hand shake of different races" />

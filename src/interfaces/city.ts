@@ -1,3 +1,5 @@
+import RaceInterface from "./race";
+
 export default interface CityInterface {
   city_id: number;
   state_id: number;
@@ -9,7 +11,7 @@ export default interface CityInterface {
   female_population: number;
   median_house_value: number;
   median_age: number;
-  races: JSON[];
+  races: Array<RaceInterface>;
   unemployment: number;
   marital_status: JSON;
   education: { highSchool: string; bachelorsDegree: string; graduateDegree: string };
