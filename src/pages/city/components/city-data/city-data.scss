@@ -6,6 +6,8 @@
   font-size: 3rem;
   text-align: center;
   text-decoration: underline;
+  margin-top: 0.25em;
+  margin-bottom: 0;
 }
 .city__banner,
 .city__demographics,
@@ -24,57 +26,98 @@
   padding-bottom: 3em;
 }
 .banner__title {
-  font-size: 3rem;
+  font-size: 4rem;
 }
 .banner__svg {
   filter: var(--svg-color);
 }
+.section__title {
+  font-size: 2rem;
+}
 
-.city__quick {
+.quick__title-and-tooltip {
   display: flex;
-  flex-flow: column;
-  align-items: center;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+.tooltip__container {
+  position: relative;
+
+  &:hover {
+    .tooltip__hover {
+      display: block;
+    }
+  }
+}
+.tooltip__icon {
+  position: relative;
+  padding: 1.5px 6px;
+  border-radius: 100%;
+  border: 2px solid var(--contrast-color);
+  font-size: 0.75rem;
+  cursor: help;
+}
+.tooltip__hover {
+  display: none;
+  position: absolute;
+  font-size: 1rem;
+  background-color: black;
+  padding: 0.25em;
+  border-radius: 10%;
+  top: -60px;
+  right: -79px;
+  width: 120px;
 }
 .quick__container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 250px;
+  min-height: 150px;
   width: 100%;
-
-  div {
-    flex: 30% 1 1;
-    text-align: center;
+  padding-bottom: 1em;
+  .city__quick {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
-}
 
-.city__demographics {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-}
-.demographics__container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  min-height: 250px;
-  div {
+  .quick__card {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     flex: 30% 1 1;
     text-align: center;
+    border: 1px solid var(--contrast-color);
+    min-height: 250px;
+    margin: 0.5em 0.25em;
 
-    &:nth-child(1),
-    &:nth-child(2) {
-      border-right: 2px solid var(--contrast-color);
-      // margin-right: -2px;
+    .quick__svg {
+      width: 50px;
+      height: 50px;
+      filter: var(--svg-color);
+      padding-bottom: 0.5em;
+    }
+
+    .quick__title {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: bolder;
+    }
+    p,
+    li {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .quick__education-list {
+      list-style-type: square;
+      text-align: left;
     }
   }
 }
-.demographics__education li {
-  list-style-type: none;
-}
+
 .city__population {
   display: flex;
   flex-flow: column nowrap;
@@ -83,9 +126,10 @@
 }
 .population__container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: center;
   width: 100%;
+  padding-bottom: 2em;
   div {
     flex: 50%;
   }
@@ -96,8 +140,13 @@
   align-items: center;
   img {
     filter: var(--svg-color);
-    width: 50%;
+    width: 250px;
     height: auto;
+  }
+  .number__text {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: -55px 0 1em 0;
   }
 }
 .city__race {
@@ -109,17 +158,59 @@
 
 .race__container {
   display: flex;
-  flex-flow: row-reverse nowrap;
+  flex-flow: row-reverse wrap;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  position: relative;
   div {
     flex: 50%;
     text-align: center;
   }
+  .race__graph {
+    padding-bottom: 2em;
+  }
+  .secondary__data {
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    right: 0;
+    bottom: 0;
+    margin-right: 10px;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-end;
+      color: var(--contrast-color);
+      margin: 0;
+      padding: 0.25em;
+      .list__box {
+        margin-right: 0.25em;
+      }
+      li {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        p {
+          margin: 0 0.5em 0 0;
+        }
+      }
+
+      .list__box {
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+      }
+    }
+  }
 }
 .race__image img {
   filter: var(--svg-color);
-  width: 50%;
+  width: 250px;
   height: auto;
 }
 
@@ -142,12 +233,22 @@
 }
 .marital__image img {
   filter: var(--svg-color);
-  width: 50%;
+  width: 250px;
   height: auto;
+}
+.marital__graph {
+  padding-bottom: 2em;
 }
 
 .city__crime {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  padding-bottom: 4em;
+}
+.crime__graph {
+  width: 70%;
+  background-color: #ffffff;
+  min-height: 300px;
+  padding: 2em;
 }

@@ -18,6 +18,11 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
+    if (theme === "dark") {
+      document.body.style.backgroundColor = "#2c2c2c";
+    } else {
+      document.body.style.backgroundColor = "white";
+    }
   }, [theme]);
 
   useEffect(() => {

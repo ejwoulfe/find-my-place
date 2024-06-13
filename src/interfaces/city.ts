@@ -1,3 +1,5 @@
+import CrimeInterface from "./crime";
+import MaritalStatusInterface from "./maritalStatus";
 import RaceInterface from "./race";
 
 export default interface CityInterface {
@@ -13,8 +15,8 @@ export default interface CityInterface {
   median_age: number;
   races: Array<RaceInterface>;
   unemployment: number;
-  marital_status: JSON;
+  marital_status: MaritalStatusInterface;
   education: { highSchool: string; bachelorsDegree: string; graduateDegree: string };
   commute_time: number;
-  crime: JSON | null;
+  crime: CrimeInterface | null;
 }
