@@ -24,7 +24,7 @@ export function StatePage() {
     if (!location.pathname.includes("city/")) {
       getStateFromPathName(location.pathname);
     }
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <main className="state__container">

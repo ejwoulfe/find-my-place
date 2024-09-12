@@ -6,8 +6,8 @@
   font-size: 3rem;
   text-align: center;
   text-decoration: underline;
-  margin-top: 0.25em;
-  margin-bottom: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 .city__banner,
 .city__demographics,
@@ -247,8 +247,8 @@
   padding-bottom: 4em;
 }
 .crime__graph {
-  width: 70%;
-  background-color: #ffffff;
-  min-height: 300px;
+  display: inline;
+  width: 80%;
+  min-height: 350px;
   padding: 2em;
 }

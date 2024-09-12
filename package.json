@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.24.1",
+    "@dnd-kit/sortable": "^8.0.0",
     "@types/express": "^4.17.21",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",

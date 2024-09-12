@@ -1,24 +1,46 @@
 import axios from "axios";
 import "./cities-list.scss";
-import { useQuery } from "react-query";
 import CityInterface from "../../../../interfaces/city";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type CitiesListProps = {
   state: string;
 };
 
 export function CitiesList(currentState: CitiesListProps) {
-  async function getCities() {
-    const stateResponse = await axios.get(`http://localhost:8888/states/name/${currentState.state}`);
-    const stateId = stateResponse.data.state_id;
-    console.log(stateId);
-    const citiesResponse = await axios.get(`http://localhost:8888/cities/${stateId}`);
-    return citiesResponse.data;
+  const [unsortedCitiesList, setUnsortedCitiesList] = useState<Array<CityInterface>>([]);
+  const [sortedList, setSortedList] = useState<Array<CityInterface>>([]);
+  // useEffect(() => {
+  //   const preferences = localStorage.getItem("preferences");
+  //   if (preferences !== null) {
+  //     console.log(JSON.parse(preferences));
+  //     console.log(unsortedCitiesList);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    async function getCities() {
+      const stateResponse = await axios.get(`http://localhost:8888/states/name/${currentState.state}`);
+      const stateId = stateResponse.data.state_id;
+      const citiesResponse = await axios.get(`http://localhost:8888/cities/${stateId}`);
+      setUnsortedCitiesList(citiesResponse.data);
+      setSortedList(citiesResponse.data);
+    }
+    getCities();
+  }, [currentState]);
+
+  function sortCitiesList(sortOption: string) {
+    const tempArray = [...unsortedCitiesList];
+    if (sortOption === "A-Z") {
+      setSortedList(tempArray);
+    } else if (sortOption === "Z-A") {
+      setSortedList(tempArray.sort((a, z) => z.name.localeCompare(a.name)));
+    }
   }
 
-  function columnsBasedOnNumOfCities(citiesList: Array<CityInterface>) {
-    const numOfCities = citiesList.length;
+  function columnsBasedOnNumOfCities(cities: Array<CityInterface>) {
+    const numOfCities = cities.length;
     switch (true) {
       case numOfCities <= 100:
         return 3;
@@ -35,13 +57,13 @@ export function CitiesList(currentState: CitiesListProps) {
     }
   }
 
-  function divideList(citiesList: Array<CityInterface>) {
-    const numOfColumns = columnsBasedOnNumOfCities(citiesList);
-    const citiesPerColumn = Math.floor(citiesList.length / numOfColumns);
+  function divideList(cities: Array<CityInterface>) {
+    const numOfColumns = columnsBasedOnNumOfCities(cities);
+    const citiesPerColumn = Math.floor(cities.length / numOfColumns);
     const endingIndexArray: Array<number> = [];
     for (let i = 1; i <= numOfColumns; i++) {
       if (i === numOfColumns) {
-        endingIndexArray.push(citiesList.length);
+        endingIndexArray.push(cities.length);
       } else {
         endingIndexArray.push(citiesPerColumn * i);
       }
@@ -52,13 +74,13 @@ export function CitiesList(currentState: CitiesListProps) {
         const lastDifference = endingIndexArray[index] - endingIndexArray[index - 1];
         return (
           <ul key={"ul-" + index} className="cities-column__ul">
-            {createUnorderedListOfCities(citiesList, endingIndex, lastDifference)}
+            {createUnorderedListOfCities(cities, endingIndex, lastDifference)}
           </ul>
         );
       } else {
         return (
           <ul key={"ul-" + index} className="cities-column__ul">
-            {createUnorderedListOfCities(citiesList, endingIndex, citiesPerColumn)}
+            {createUnorderedListOfCities(cities, endingIndex, citiesPerColumn)}
           </ul>
         );
       }
@@ -82,15 +104,6 @@ export function CitiesList(currentState: CitiesListProps) {
     return listElements;
   }
 
-  const citiesQuery = useQuery({
-    queryKey: ["cities"],
-    queryFn: getCities,
-  });
-
-  if (citiesQuery.isLoading) return <div className="cities-list__loading">Fetching Cities...</div>;
-  if (citiesQuery.error)
-    return <div className="cities-list__error">An error occurred: {JSON.stringify(citiesQuery.error)}</div>;
-
   return (
     <div className="cities-list__container">
       <h3 className="cities-list__title">Cities List</h3>
@@ -98,13 +111,22 @@ export function CitiesList(currentState: CitiesListProps) {
         <label className="sort-by__text" htmlFor="sort">
           Sort By:
         </label>
-        <select name="sort">
+        <select
+          name="sort"
+          defaultValue={"A-Z"}
+          onChange={(e) => {
+            const test = sortCitiesList(e.target.value);
+            if (test !== undefined) {
+              console.log("called");
+              setSortedList(test);
+            }
+          }}>
           <option value="preferences">Preferences</option>
           <option value="A-Z">Alphabetical A-Z</option>
           <option value="Z-A">Alphabetical Z-A</option>
         </select>
       </div>
-      <ul className="cities-list__ul">{divideList(citiesQuery.data.map((city: CityInterface) => city))}</ul>
+      <ul className="cities-list__ul">{divideList(sortedList.map((cityName: CityInterface) => cityName))}</ul>
     </div>
   );
 }

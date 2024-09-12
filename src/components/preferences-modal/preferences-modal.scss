@@ -8,6 +8,7 @@
   right: 0;
   top: 82px;
   max-width: 20%;
+  min-width: 200px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -20,49 +21,49 @@
 }
 .modal__description {
   width: 95%;
+  font-weight: bold;
 }
 
+.modal__list {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  width: 100%;
+  border-top: 2px solid var(--contrast-color);
+  ul {
+    list-style: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .list__numbers {
+    flex: 10%;
+    border-right: 2px solid var(--contrast-color);
+    text-align: center;
+    li {
+      border-bottom: 2px solid var(--contrast-color);
+    }
+  }
+  .list__preferences {
+    flex: 85%;
+    li {
+      padding-left: 1em;
+      border-bottom: 2px solid var(--contrast-color);
+      background-color: rgba(112, 112, 112, 0.521);
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: -1px -1px 0 var(--background-color), 1px -1px 0 var(--background-color),
+        -1px 1px 0 var(--background-color), 1px 1px 0 var(--background-color);
+    }
+  }
+  li {
+    padding: 1.5em 0;
+  }
+}
 .preferences__container {
   width: 90%;
   display: flex;
   flex-flow: column nowrap;
   text-align: center;
   padding-bottom: 1em;
-}
-
-.preference {
-  width: 100%;
-  padding: 1em 0 1em 0;
-
-  .preference__name {
-    border-bottom: 2px solid var(--contrast-color);
-    width: 100%;
-    margin: 0;
-  }
-  .buttons__list {
-    display: flex;
-    flex-flow: row nowrap;
-    list-style: none;
-    justify-content: space-between;
-    padding: 0.5em 0 0 0;
-    margin: 0;
-  }
-
-  .radio__list-item {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    flex: 15%;
-
-    label {
-      width: 100%;
-    }
-
-    input[type="radio"] {
-      // transform: scale(1.25);
-      margin: 0;
-      width: 100%;
-    }
-  }
 }

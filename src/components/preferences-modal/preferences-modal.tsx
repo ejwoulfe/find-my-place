@@ -1,89 +1,144 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "./preferences-modal.scss";
 import { PreferencesContext } from "../../context/PreferencesContext";
-import PreferencesInterface from "../../interfaces/preferences";
+
+import { useState } from "react";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+
+import { SortableItem } from "./sortable-item";
+
+type OptionsObject = {
+  name: string;
+  key: string;
+};
 
 export function PreferencesModal() {
   const { preferences, setPreferences } = useContext(PreferencesContext);
+  const [options, setOptions] = useState<Array<OptionsObject> | null>(null);
 
-  function createRadioButtonGroup(numOfButtons: number, dataType: string, currentPreferences: PreferencesInterface) {
-    const selectedNumber = currentPreferences[dataType as keyof PreferencesInterface];
-    const radioButtonGroupJSX = [];
+  const [items, setItems] = useState([1, 2, 3, 4, 5, 6]);
 
-    for (let i = 1; i <= numOfButtons; i++) {
-      if (i == selectedNumber) {
-        radioButtonGroupJSX.push(
-          <li className="radio__list-item" key={dataType + "-button-" + i}>
-            <input
-              type="radio"
-              id={`${dataType}-${i}__radio`}
-              name={dataType}
-              key={i}
-              onChange={(event) => {
-                setPreferences({ ...preferences, [event.target.name]: event.target.value });
-              }}
-              value={i}
-              checked
-            />
-            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
-          </li>
-        );
-      } else {
-        radioButtonGroupJSX.push(
-          <li className="radio__list-item" key={dataType + "-button-" + i}>
-            <input
-              type="radio"
-              id={`${dataType}-${i}__radio`}
-              name={dataType}
-              onChange={(event) => {
-                setPreferences({ ...preferences, [event.target.name]: event.target.value });
-              }}
-              value={i}
-            />
-            <label htmlFor={`${dataType}-${i}__radio`}>{i}</label>
-          </li>
-        );
+  useEffect(() => {
+    function camelCaseToWords(s: string) {
+      const result = s.replace(/([A-Z])/g, " $1");
+      return result.charAt(0).toUpperCase() + result.slice(1);
+    }
+    if (preferences.costOfLiving === null) {
+      setOptions([
+        { name: "Cost of Living", key: "costOfLiving" },
+        { name: "Median Income", key: "medianIncome" },
+        { name: "Median House Value", key: "medianHouseValue" },
+        { name: "Median Age", key: "medianAge" },
+        { name: "Larger Population", key: "largerPopulation" },
+        { name: "Highest Education", key: "highestEducation" },
+      ]);
+    } else {
+      const tempArray = [];
+
+      for (let i = 1; i <= 6; i++) {
+        for (let key in preferences) {
+          if (preferences[key] === i) {
+            tempArray.push({ name: camelCaseToWords(key), key: key });
+          }
+        }
+      }
+      setItems([1, 2, 3, 4, 5, 6]);
+      setOptions([...tempArray]);
+    }
+  }, [preferences]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+  function handleDragEnd(event) {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setItems((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  }
+
+  function submitPreferences() {
+    const ulElement = document.getElementById("preferences-list");
+    const liElements = ulElement?.getElementsByTagName("li");
+    const preferencesTempObj = {
+      costOfLiving: null,
+      medianIncome: null,
+      medianHouseValue: null,
+      medianAge: null,
+      largerPopulation: null,
+      highestEducation: null,
+    };
+    if (liElements !== undefined) {
+      const iterator = liElements[Symbol.iterator]();
+      let index = 1;
+      for (const li of iterator) {
+        for (let i = 0; i < options!.length; i++) {
+          if (options![i].name === li.innerHTML) {
+            preferencesTempObj[options![i].key] = index;
+          }
+        }
+        index++;
       }
     }
 
-    return radioButtonGroupJSX.map((radioButton) => {
-      return radioButton;
-    });
+    setPreferences(preferencesTempObj);
   }
+
+  // useEffect(() => {
+  //   console.log(options);
+  // }, [options]);
 
   return (
     <div className="modal__container">
-      <h2>Preferences</h2>
+      <h2>Preferences Order</h2>
       <p className="modal__description">
-        Give each category a number rating, based on importance to you. 1 being lowest priority 5 being of highest
-        priority.
+        Drag and Drop the order of importance for each. 1 being the most important to 6 being the least important.
       </p>
-      <div className="preferences__container">
-        <span className="preference">
-          <p className="preference__name">Cost of Living</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "costOfLiving", preferences)}</ul>
-        </span>
-        <span className="preference">
-          <p className="preference__name">Median Income</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "medianIncome", preferences)}</ul>
-        </span>
-        <span className="preference">
-          <p className="preference__name">Median House Value</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "medianHouseValue", preferences)}</ul>
-        </span>
-        <span className="preference">
-          <p className="preference__name">Median Age</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "medianAge", preferences)}</ul>
-        </span>
-        <span className="preference">
-          <p className="preference__name">Larger Population</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "largePopulation", preferences)}</ul>
-        </span>
-        <span className="preference">
-          <p className="preference__name">Highest Education Achieved</p>
-          <ul className="buttons__list">{createRadioButtonGroup(5, "highestEducation", preferences)}</ul>
-        </span>
-      </div>
+      {options !== null ? (
+        <>
+          <div className="modal__list">
+            <ul className="list__numbers">
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+            </ul>
+
+            <ul className="list__preferences" id="preferences-list">
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext items={items} strategy={verticalListSortingStrategy}>
+                  {items.map((id) => (
+                    <SortableItem key={id} id={id} option={options[id - 1]} />
+                  ))}
+                </SortableContext>
+              </DndContext>
+            </ul>
+          </div>
+          <button
+            onClick={() => {
+              submitPreferences();
+            }}>
+            Submit
+          </button>
+        </>
+      ) : null}
     </div>
   );
 }

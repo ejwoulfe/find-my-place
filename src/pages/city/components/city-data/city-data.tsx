@@ -26,6 +26,13 @@ export function CityData(cityData: CityDataProps) {
   Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, PointElement, LineElement);
   const { city } = cityData;
   const { theme } = useContext(ThemeContext);
+  const oppositeThemeColor = (theme: string) => {
+    if (theme === "light") {
+      return "#000000";
+    } else if (theme === "dark") {
+      return "#FFFFFF";
+    }
+  };
 
   function convertToPercentage(number: number, total: number) {
     return ((number / total) * 100).toFixed(2);
@@ -228,7 +235,7 @@ export function CityData(cityData: CityDataProps) {
                     hoverBorderWidth: 1,
                     data: getRaceNumber(city.races),
                     backgroundColor: [
-                      "#f57b42",
+                      "#32e6a3",
                       "#2e7ffb",
                       "#fbdb3c",
                       "#8861ad",
@@ -345,7 +352,7 @@ export function CityData(cityData: CityDataProps) {
                       size: 16,
                     },
                     formatter: (val) => {
-                      return val;
+                      return val + "%";
                     },
                     labels: {
                       value: {
@@ -372,14 +379,67 @@ export function CityData(cityData: CityDataProps) {
                 datasets: [
                   {
                     label: "Crime Index",
-                    hoverBorderColor: "#000000",
                     hoverBorderWidth: 1,
+                    pointRadius: 4.5,
                     data: Object.values(city.crime),
-                    backgroundColor: "#000000",
+                    hoverBorderColor: oppositeThemeColor(theme),
+                    backgroundColor: oppositeThemeColor(theme),
+                    pointHoverBorderColor: theme,
+                    pointBorderColor: "#000000",
+                    borderColor: "#a6a6a6",
                   },
                 ],
               }}
               options={{
+                scales: {
+                  x: {
+                    ticks: {
+                      color: function () {
+                        if (theme === "dark") {
+                          return "#d4d4d4";
+                        } else {
+                          return "#525252";
+                        }
+                      },
+                    },
+                    grid: {
+                      color: function () {
+                        if (theme === "dark") {
+                          return "rgba(212, 212, 212, 0.4)";
+                        } else {
+                          return "rgba(82, 82, 82, 0.4)";
+                        }
+                      },
+                    },
+                  },
+                  y: {
+                    ticks: {
+                      color: function () {
+                        if (theme === "dark") {
+                          return "#d4d4d4";
+                        } else {
+                          return "#525252";
+                        }
+                      },
+                    },
+                    grid: {
+                      color: function () {
+                        if (theme === "dark") {
+                          return "rgba(212, 212, 212, 0.4)";
+                        } else {
+                          return "rgba(82, 82, 82, 0.4)";
+                        }
+                      },
+                    },
+                  },
+                },
+                layout: {
+                  padding: {
+                    top: 25,
+                    right: 30,
+                    left: 30,
+                  },
+                },
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -393,9 +453,7 @@ export function CityData(cityData: CityDataProps) {
                     display: true,
                     anchor: "start",
                     align: "top",
-                    formatter: (val) => {
-                      return val;
-                    },
+                    color: oppositeThemeColor(theme),
                   },
                 },
               }}

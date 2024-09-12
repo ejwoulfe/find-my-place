@@ -3,6 +3,6 @@ export default interface PreferencesInterface {
   medianIncome: number | null;
   medianHouseValue: number | null;
   medianAge: number | null;
-  largePopulation: number | null;
+  largerPopulation: number | null;
   highestEducation: number | null;
 }

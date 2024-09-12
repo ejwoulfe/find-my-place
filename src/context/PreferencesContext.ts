@@ -16,7 +16,7 @@ function setDefault() {
         medianIncome: null,
         medianHouseValue: null,
         medianAge: null,
-        largePopulation: null,
+        largerPopulation: null,
         highestEducation: null,
       })
     );
@@ -25,7 +25,7 @@ function setDefault() {
       medianIncome: null,
       medianHouseValue: null,
       medianAge: null,
-      largePopulation: null,
+      largerPopulation: null,
       highestEducation: null,
     };
   } else if (storageValue !== null) {

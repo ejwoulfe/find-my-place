@@ -3,17 +3,21 @@ import "./search.scss";
 import { confirmStateExists } from "../../helpers/confirmStateExists";
 import { formatForSearch } from "../../helpers/formatForSearch";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function SearchBar() {
   const navigate = useNavigate();
   const [searchErrorMessage, setSearchErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {}, [searchErrorMessage]);
 
   function searchSubmitted(e: React.SyntheticEvent) {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       search: { value: string };
     };
+    console.log(target.search.value);
+
     if (target.search.value.length === 0) {
       setSearchErrorMessage("Entered a value of length 0.");
     }
